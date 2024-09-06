@@ -32,6 +32,23 @@ export function DndPage() {
     setCurrentDnd(dnd);
   };
 
+  const handleUpdate = (id, params, successCallback) => {
+    console.log("handleUpdate", params);
+    axios.patch(`http://localhost:3000/dnd/${id}.json`, params).then((response) => {
+      setDnd(
+        dnd.map((dnd) => {
+          if (dnd.id === response.data.id) {
+            return response.data;
+          } else {
+            return dnd;
+          }
+        })
+      );
+      successCallback();
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsDndShowVisible(false);
@@ -46,7 +63,7 @@ export function DndPage() {
       <DndIndex dnd={dnd} onShow={handleShow} />
       <Modal show={isDndShowVisible} onClose={handleClose}>
         <h1>Test</h1>
-        <DndShow photo={currentDnd} />
+        <DndShow photo={currentDnd} onUpdate={handleUpdate} />
       </Modal>
     </main>
   );
