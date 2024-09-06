@@ -2,9 +2,13 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { DndIndex } from "./DndIndex";
 import { DndNew } from "./DndNew";
+import { Modal } from "./Modal";
+import { DndShow } from "./DndShow";
 
 export function DndPage() {
   const [dnd, setDnd] = useState([]);
+  const [isDndShowVisible, setIsDndShowVisible] = useState(false);
+  const [currentDnd, setCurrentDnd] = useState({});
 
   const handleIndex = () => {
     console.log("handleIndex");
@@ -22,13 +26,28 @@ export function DndPage() {
     });
   };
 
+  const handleShow = (dnd) => {
+    console.log("handleShow", dnd);
+    setIsDndShowVisible(true);
+    setCurrentDnd(dnd);
+  };
+
+  const handleClose = () => {
+    console.log("handleClose");
+    setIsDndShowVisible(false);
+  };
+
   useEffect(handleIndex, []);
 
   return (
     <main>
       <DndNew onCreate={handleCreate} />
       <h1>Welcome to React!</h1>
-      <DndIndex dnd={dnd} />
+      <DndIndex dnd={dnd} onShow={handleShow} />
+      <Modal show={isDndShowVisible} onClose={handleClose}>
+        <h1>Test</h1>
+        <DndShow photo={currentDnd} />
+      </Modal>
     </main>
   );
 }
