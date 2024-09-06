@@ -49,6 +49,14 @@ export function DndPage() {
     });
   };
 
+  const handleDestroy = (id) => {
+    console.log("handleDestroy", id);
+    axios.delete(`http://localhost:3000/dnd/${id}.json`).then(() => {
+      setDnd(dnd.filter((dnd) => dnd.id !== id));
+      handleClose();
+    });
+  };
+
   const handleClose = () => {
     console.log("handleClose");
     setIsDndShowVisible(false);
@@ -63,7 +71,7 @@ export function DndPage() {
       <DndIndex dnd={dnd} onShow={handleShow} />
       <Modal show={isDndShowVisible} onClose={handleClose}>
         <h1>Test</h1>
-        <DndShow photo={currentDnd} onUpdate={handleUpdate} />
+        <DndShow photo={currentDnd} onUpdate={handleUpdate} onDestroy={handleDestroy} />
       </Modal>
     </main>
   );

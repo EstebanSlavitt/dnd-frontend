@@ -1,4 +1,4 @@
-export function DndShow({ dnd, onUpdate }) {
+export function DndShow({ dnd, onUpdate, onDestroy }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const params = new FormData(event.target);
@@ -13,6 +13,7 @@ export function DndShow({ dnd, onUpdate }) {
       <p>Width: {dnd.width}</p>
       <p>Height: {dnd.height}</p>
       <form onSubmit={handleSubmit}></form>
+      <button onClick={() => onDestroy(dnd.id)}>Destroy</button>
     </div>
   );
 }
