@@ -1,12 +1,12 @@
-export function DndIndex({ dnd, onShow }) {
+export function DndIndex({ characters, onShow }) {
   return (
     <div>
-      {dnd.map((character, index) => (
+      {characters.map((character, index) => (
         <div key={index}>
           <h2>{character.name}</h2>
           <p>Class: {character.class_name}</p>
           <p>Race: {character.race}</p>
-          <button onClick={() => onShow(dnd)}>More info</button>
+          <button onClick={() => onShow(character)}>More info</button>
         </div>
       ))}
     </div>

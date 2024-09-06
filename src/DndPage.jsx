@@ -6,59 +6,64 @@ import { Modal } from "./Modal";
 import { DndShow } from "./DndShow";
 
 export function DndPage() {
-  const [dnd, setDnd] = useState([]);
+  const [characters, setCharacters] = useState([]);
   const [isDndShowVisible, setIsDndShowVisible] = useState(false);
-  const [currentDnd, setCurrentDnd] = useState({});
+  const [currentCharacter, setCurrentCharacter] = useState(null);
 
   const handleIndex = () => {
-    console.log("handleIndex");
-    axios.get("http://localhost:3000/dnd.json").then((response) => {
-      console.log(response.data);
-      setDnd(response.data);
-    });
+    axios
+      .get("http://localhost:3000/characters.json")
+      .then((response) => {
+        setCharacters(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data", error);
+      });
   };
 
   const handleCreate = (params, successCallback) => {
-    console.log("handleCreate", params);
-    axios.post("http://localhost:3000/dnd.json", params).then((response) => {
-      setDnd([...dnd, response.data]);
-      successCallback();
-    });
+    axios
+      .post("http://localhost:3000/characters.json", params)
+      .then((response) => {
+        setCharacters([...characters, response.data]);
+        successCallback();
+      })
+      .catch((error) => {
+        console.error("Error creating character", error);
+      });
   };
 
-  const handleShow = (dnd) => {
-    console.log("handleShow", dnd);
+  const handleShow = (character) => {
     setIsDndShowVisible(true);
-    setCurrentDnd(dnd);
+    setCurrentCharacter(character);
   };
 
   const handleUpdate = (id, params, successCallback) => {
-    console.log("handleUpdate", params);
-    axios.patch(`http://localhost:3000/dnd/${id}.json`, params).then((response) => {
-      setDnd(
-        dnd.map((dnd) => {
-          if (dnd.id === response.data.id) {
-            return response.data;
-          } else {
-            return dnd;
-          }
-        })
-      );
-      successCallback();
-      handleClose();
-    });
+    axios
+      .patch(`http://localhost:3000/characters/${id}.json`, params)
+      .then((response) => {
+        setCharacters(characters.map((char) => (char.id === response.data.id ? response.data : char)));
+        successCallback();
+        handleClose();
+      })
+      .catch((error) => {
+        console.error("Error updating character", error);
+      });
   };
 
   const handleDestroy = (id) => {
-    console.log("handleDestroy", id);
-    axios.delete(`http://localhost:3000/dnd/${id}.json`).then(() => {
-      setDnd(dnd.filter((dnd) => dnd.id !== id));
-      handleClose();
-    });
+    axios
+      .delete(`http://localhost:3000/characters/${id}.json`)
+      .then(() => {
+        setCharacters(characters.filter((char) => char.id !== id));
+        handleClose();
+      })
+      .catch((error) => {
+        console.error("Error deleting character", error);
+      });
   };
 
   const handleClose = () => {
-    console.log("handleClose");
     setIsDndShowVisible(false);
   };
 
@@ -67,11 +72,10 @@ export function DndPage() {
   return (
     <main>
       <DndNew onCreate={handleCreate} />
-      <h1>Welcome to React!</h1>
-      <DndIndex dnd={dnd} onShow={handleShow} />
+      <DndIndex characters={characters} onShow={handleShow} />
+
       <Modal show={isDndShowVisible} onClose={handleClose}>
-        <h1>Test</h1>
-        <DndShow photo={currentDnd} onUpdate={handleUpdate} onDestroy={handleDestroy} />
+        {currentCharacter && <DndShow photo={currentCharacter} onUpdate={handleUpdate} onDestroy={handleDestroy} />}
       </Modal>
     </main>
   );
