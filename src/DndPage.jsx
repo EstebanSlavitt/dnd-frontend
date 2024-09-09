@@ -25,8 +25,9 @@ export function DndPage() {
     axios
       .post("http://localhost:3000/characters.json", params)
       .then((response) => {
-        setCharacters([...characters, response.data]);
-        successCallback();
+        setCharacters([response.data]);
+        // setCharacters([...characters, response.data]);
+        // successCallback();
       })
       .catch((error) => {
         console.error("Error creating character", error);
@@ -43,7 +44,7 @@ export function DndPage() {
       .patch(`http://localhost:3000/characters/${id}.json`, params)
       .then((response) => {
         setCharacters(characters.map((char) => (char.id === response.data.id ? response.data : char)));
-        successCallback();
+        // successCallback();
         handleClose();
       })
       .catch((error) => {

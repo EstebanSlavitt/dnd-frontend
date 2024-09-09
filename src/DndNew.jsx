@@ -1,5 +1,24 @@
 import { useEffect, useState } from "react";
 import { getClasses, getRaces } from "./apiService";
+import axios from "axios";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { DndIndex } from "./DndIndex";
+
+export function DndIndexPage() {
+  const dnd = useLoaderData();
+  const navigate = useNavigate();
+
+  const handleShow = (dnd) => {
+    console.log("handleShow", dnd);
+    navigate(`/photos/${dnd.id}`);
+  };
+
+  return (
+    <div>
+      <DndIndex photos={dnd} onShow={handleShow} />
+    </div>
+  );
+}
 
 export function DndNew({ onCreate }) {
   const [classes, setClasses] = useState([]);
@@ -10,17 +29,28 @@ export function DndNew({ onCreate }) {
     getRaces().then(setRaces);
   }, []);
 
+  const fetchclasses = () => {
+    axios
+      .get("https://www.dnd5eapi.co/api/classes")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  };
+
   const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
   const handleRandomCreate = (event) => {
     event.preventDefault();
     const params = {
-      name: `Random Name #${Math.floor(Math.random() * 1000)}`, // Randomized name
-      class_name: getRandomElement(classes), // Random class from API
-      race: getRandomElement(races), // Random race from API
+      name: `Random Name #${Math.floor(Math.random() * 1000)}`,
+      class_name: getRandomElement(classes),
+      race: getRandomElement(races),
       level: Math.floor(Math.random() * 20) + 1,
-      background: "Random Background", // Hardcoded or fetched similarly
-      alignment: "Chaotic Good", // Can be randomized similarly
+      background: "Random Background",
+      alignment: "Chaotic Good",
     };
     onCreate(params);
   };
