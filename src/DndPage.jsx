@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { DndIndex } from "./DndIndex";
-import { DndNew } from "./DndNew";
+// import { DndNew } from "./DndNew";
 import { Modal } from "./Modal";
 import { DndShow } from "./DndShow";
+import { CharactersNew } from "./CharactersNew";
 
 export function DndPage() {
   const [characters, setCharacters] = useState([]);
@@ -22,17 +23,25 @@ export function DndPage() {
   };
 
   const handleCreate = (params, successCallback) => {
-    axios
-      .post("http://localhost:3000/characters.json", params)
-      .then((response) => {
-        setCharacters([response.data]);
-        // setCharacters([...characters, response.data]);
-        // successCallback();
-      })
-      .catch((error) => {
-        console.error("Error creating character", error);
-      });
+    console.log("handleCreate", params);
+    axios.post("http://localhost:3000/characters.json", params).then((response) => {
+      setCharacters([...characters, response.data]);
+      successCallback();
+    });
   };
+
+  // const handleCreate = (params, successCallback) => {
+  //   axios
+  //     .post("http://localhost:3000/characters.json", params)
+  //     .then((response) => {
+  //       setCharacters([response.data]);
+  //       // setCharacters([...characters, response.data]);
+  //       // successCallback();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error creating character", error);
+  //     });
+  // };
 
   const handleShow = (character) => {
     setIsDndShowVisible(true);
@@ -72,9 +81,10 @@ export function DndPage() {
 
   return (
     <main>
-      <DndNew onCreate={handleCreate} />
+      import import
+      <CharactersNew onCreate={handleCreate} />
+      {/* <DndNew onCreate={handleCreate} /> */}
       <DndIndex characters={characters} onShow={handleShow} />
-
       <Modal show={isDndShowVisible} onClose={handleClose}>
         {currentCharacter && <DndShow photo={currentCharacter} onUpdate={handleUpdate} onDestroy={handleDestroy} />}
       </Modal>

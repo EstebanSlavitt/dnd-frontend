@@ -1,7 +1,19 @@
 export function DndInfoPage() {
   return (
-    <div className="bg-gray-900 text-gray-300 py-12 px-6 sm:px-12 lg:px-24">
-      <div className="max-w-4xl mx-auto">
+    <div className="relative bg-gray-900 text-gray-300 py-12 px-6 sm:px-12 lg:px-24 overflow-hidden">
+      {/* Background Winter Image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url("https://cdn.pixabay.com/photo/2022/11/15/12/23/winter-7593872_1280.jpg")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.2,
+        }}
+      ></div>
+
+      {/* Content Section */}
+      <div className="relative z-10 max-w-4xl mx-auto backdrop-blur-md bg-gray-900 bg-opacity-80 p-8 rounded-lg">
         <h2 className="text-4xl font-bold text-white mb-6 font-cinzel">What is Dungeons & Dragons?</h2>
         <p className="leading-relaxed text-lg mb-8">
           Dungeons & Dragons (D&D) is a tabletop role-playing game (RPG) where players take on the roles of characters

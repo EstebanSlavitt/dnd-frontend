@@ -22,9 +22,39 @@ export function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center px-6 py-12">
-      <div className="max-w-md w-full bg-gray-800 rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold text-white font-cinzel mb-8 text-center">Signup</h1>
+    <div className="relative min-h-screen flex items-center justify-center bg-gray-900 overflow-hidden">
+      {/* Background Dragon Image */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: 'url("https://cdn.pixabay.com/photo/2015/04/08/04/41/the-chinese-dragon-712149_1280.jpg")',
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.2,
+        }}
+      ></div>
+
+      {/* First Foreground Image (AI Art) */}
+      <div className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 z-10">
+        <img
+          src="https://cdn.pixabay.com/photo/2023/04/02/00/49/ai-generated-7893313_1280.jpg"
+          alt="AI Generated Art"
+          className="w-full h-full object-cover opacity-80 transform rotate-6 scale-90 transition duration-500 hover:scale-100 hover:rotate-0"
+        />
+      </div>
+
+      {/* Second Foreground Image (Fantasy Art) */}
+      <div className="absolute bottom-0 left-0 w-64 h-64 sm:w-80 sm:h-80 z-10">
+        <img
+          src="https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_1280.jpg"
+          alt="Fantasy Art"
+          className="w-full h-full object-cover opacity-80 transform -rotate-6 scale-90 transition duration-500 hover:scale-105 hover:rotate-0"
+        />
+      </div>
+
+      {/* Signup Form */}
+      <div className="relative z-20 max-w-md w-full bg-gray-800 bg-opacity-90 rounded-lg shadow-lg p-8 backdrop-blur-md">
+        <h1 className="text-4xl font-bold text-white font-cinzel mb-8 text-center">Signup</h1>
         <ul className="mb-4">
           {errors.map((error) => (
             <li key={error} className="text-red-500 text-sm">

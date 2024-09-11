@@ -1,44 +1,53 @@
 import { useEffect, useState } from "react";
-import { getClasses, getRaces } from "./apiService";
 import axios from "axios";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { DndIndex } from "./DndIndex";
 
+// DndIndexPage Component
 export function DndIndexPage() {
   const dnd = useLoaderData();
   const navigate = useNavigate();
 
   const handleShow = (dnd) => {
     console.log("handleShow", dnd);
-    navigate(`/photos/${dnd.id}`);
+    navigate(`/dnd/${dnd.id}`);
   };
 
   return (
     <div>
-      <DndIndex photos={dnd} onShow={handleShow} />
+      <DndIndex dnd={dnd} onShow={handleShow} />
     </div>
   );
 }
 
-export function DndNew({ onCreate }) {
+// CharactersNew Component
+export function CharactersNew({ onCreate }) {
   const [classes, setClasses] = useState([]);
   const [races, setRaces] = useState([]);
+
+  // Placeholder function for fetching classes and races
+  const getClasses = async () => {
+    try {
+      const response = await axios.get("https://www.dnd5eapi.co/api/classes");
+      return response.data.results.map((item) => item.name); // Assuming the API structure
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
+  const getRaces = async () => {
+    try {
+      const response = await axios.get("https://www.dnd5eapi.co/api/races");
+      return response.data.results.map((item) => item.name); // Assuming the API structure
+    } catch (error) {
+      console.error("Error fetching races:", error);
+    }
+  };
 
   useEffect(() => {
     getClasses().then(setClasses);
     getRaces().then(setRaces);
   }, []);
-
-  const fetchclasses = () => {
-    axios
-      .get("https://www.dnd5eapi.co/api/classes")
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  };
 
   const getRandomElement = (arr) => arr[Math.floor(Math.random() * arr.length)];
 

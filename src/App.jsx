@@ -8,6 +8,7 @@ import { DndPage } from "./DndPage";
 import { Footer } from "./Footer";
 import { DndIndex } from "./DndIndex";
 import { DndInfoPage } from "./DndInfoPage";
+import { CharactersNewPage } from "./CharactersNewPage";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "/dnd/info",
         element: <DndInfoPage />,
+      },
+      {
+        path: "/characters/new",
+        element: <CharactersNewPage />,
       },
     ],
   },
