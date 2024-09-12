@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { DndIndex } from "./DndIndex";
 // import { DndNew } from "./DndNew";
+// import { CharactersIndex } from "./CharactersIndex";
 import { Modal } from "./Modal";
 import { DndShow } from "./DndShow";
 import { CharactersNew } from "./CharactersNew";
@@ -81,10 +82,10 @@ export function DndPage() {
 
   return (
     <main>
-      import import
+      {/* <CharactersIndex characters={characters} /> */}
       <CharactersNew onCreate={handleCreate} />
       {/* <DndNew onCreate={handleCreate} /> */}
-      <DndIndex characters={characters} onShow={handleShow} />
+
       <Modal show={isDndShowVisible} onClose={handleClose}>
         {currentCharacter && <DndShow photo={currentCharacter} onUpdate={handleUpdate} onDestroy={handleDestroy} />}
       </Modal>
