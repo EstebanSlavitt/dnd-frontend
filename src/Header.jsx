@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { LogoutLink } from "./LogoutLink"; // Import the LogoutLink
 
 const navigation = [
   { name: "Home", href: "/", current: true },
   { name: "Signup", href: "/signup", current: false },
   { name: "Info", href: "/dnd/info", current: false },
   { name: "Login", href: "/login", current: false },
-  { name: "Characters Backstory", href: "/characters/backstory", current: false }, // Add this for Characters Backstory
+  { name: "Characters Backstory", href: "/characters/backstory", current: false },
 ];
 
 function classNames(...classes) {
@@ -15,6 +16,8 @@ function classNames(...classes) {
 }
 
 export function Header() {
+  const isAuthenticated = !!localStorage.getItem("jwt"); // Check if the user is logged in
+
   return (
     <>
       {/* Navigation */}
@@ -55,47 +58,16 @@ export function Header() {
                         {item.name}
                       </Link>
                     ))}
+
+                    {/* Show Logout if user is authenticated */}
+                    {isAuthenticated && <LogoutLink />}
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* Mobile Menu */}
-            <Disclosure.Panel className="sm:hidden">
-              <div className="space-y-1 px-2 pb-3 pt-2">
-                {navigation.map((item) => (
-                  <Disclosure.Button
-                    key={item.name}
-                    as="a"
-                    href={item.href}
-                    className={classNames(
-                      item.current ? "bg-gray-900 text-white" : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                      "block rounded-md px-3 py-2 text-base font-medium"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Disclosure.Button>
-                ))}
-              </div>
-            </Disclosure.Panel>
           </>
         )}
       </Disclosure>
-
-      {/* Top Section (D&D-Themed Title and Description) */}
-      <div className="bg-gray-900 py-24 sm:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-cinzel">
-              Dungeons & Dragons Character Generator
-            </h2>
-            <p className="mt-6 text-lg leading-8 text-gray-300">
-              Create your own characters and embark on thrilling D&D adventures with our character generator.
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 }

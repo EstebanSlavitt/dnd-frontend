@@ -8,7 +8,8 @@ import { Footer } from "./Footer";
 import { DndIndex } from "./DndIndex";
 import { DndInfoPage } from "./DndInfoPage";
 import { CharactersNewPage } from "./CharactersNewPage";
-import { CharactersIndexPage } from "./CharactersIndexPage"; // Import the CharactersIndexPage component
+import { CharactersIndexPage } from "./CharactersIndexPage";
+import { PrivateRoute } from "./PrivateRoute"; // Import PrivateRoute
 
 const router = createBrowserRouter([
   {
@@ -22,7 +23,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <DndPage />,
+        element: (
+          <PrivateRoute>
+            <DndPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/signup",
@@ -39,15 +44,23 @@ const router = createBrowserRouter([
       },
       {
         path: "/dnd/info",
-        element: <DndInfoPage />,
+        element: (
+          <PrivateRoute>
+            <DndInfoPage />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/characters/new",
         element: <CharactersNewPage />,
       },
       {
-        path: "/characters/backstory", // Add the new route for backstory
-        element: <CharactersIndexPage />,
+        path: "/characters/backstory",
+        element: (
+          <PrivateRoute>
+            <CharactersIndexPage />
+          </PrivateRoute>
+        ),
       },
     ],
   },

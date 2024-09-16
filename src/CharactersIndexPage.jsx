@@ -57,25 +57,45 @@ export function CharactersIndexPage() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-gray-800 rounded-lg shadow-lg text-white">
-      <h1 className="text-3xl font-bold text-white font-cinzel mb-6 text-center">Random Character Backstory</h1>
+    <div
+      className="relative min-h-screen bg-cover bg-fixed"
+      style={{ backgroundImage: 'url("https://cdn.pixabay.com/photo/2023/01/04/12/26/castle-7696633_1280.jpg")' }}
+    >
+      {/* Overlay to make content more readable */}
+      <div className="absolute inset-0 bg-gray-900 bg-opacity-50"></div>
 
-      {/* Button to generate a new random backstory */}
-      <div className="text-center mb-6">
-        <button
-          onClick={generateNewBackstory}
-          className="py-2 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md transition-transform duration-300 transform hover:scale-105"
-        >
-          Generate Random Backstory
-        </button>
-      </div>
+      {/* Main Content */}
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-16">
+        <div className="max-w-4xl mx-auto p-10 bg-gray-800 bg-opacity-90 rounded-lg shadow-lg text-white">
+          <h1 className="text-5xl font-bold text-white font-cinzel mb-8 text-center">Random Character Backstory</h1>
 
-      {/* Display the generated backstory */}
-      {backstory && (
-        <div className="bg-gray-700 p-4 rounded-md">
-          <p className="text-lg">{backstory}</p>
+          {/* Button to generate a new random backstory */}
+          <div className="text-center mb-6">
+            <button
+              onClick={generateNewBackstory}
+              className="py-2 px-4 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-md transition-transform duration-300 transform hover:scale-105"
+            >
+              Generate Random Backstory
+            </button>
+          </div>
+
+          {/* Display the generated backstory */}
+          {backstory && (
+            <div className="bg-gray-700 p-6 rounded-md shadow-md">
+              <p className="text-lg leading-relaxed">{backstory}</p>
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Foreground Image for a unique touch */}
+        <div className="absolute bottom-10 right-10 w-64 h-64 opacity-90">
+          <img
+            src="https://cdn.pixabay.com/photo/2023/03/07/21/43/ai-generated-7836458_1280.jpg"
+            alt="Fantasy Artwork"
+            className="w-full h-full object-cover transform -rotate-6 scale-110 transition duration-500 hover:scale-125 hover:rotate-0"
+          />
+        </div>
+      </div>
     </div>
   );
 }
