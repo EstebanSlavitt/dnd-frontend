@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
-
 import axios from "axios";
 import { Header } from "./Header";
 import { SignupPage } from "./SignupPage";
@@ -9,6 +8,7 @@ import { Footer } from "./Footer";
 import { DndIndex } from "./DndIndex";
 import { DndInfoPage } from "./DndInfoPage";
 import { CharactersNewPage } from "./CharactersNewPage";
+import { CharactersIndexPage } from "./CharactersIndexPage"; // Import the CharactersIndexPage component
 
 const router = createBrowserRouter([
   {
@@ -44,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/characters/new",
         element: <CharactersNewPage />,
+      },
+      {
+        path: "/characters/backstory", // Add the new route for backstory
+        element: <CharactersIndexPage />,
       },
     ],
   },
