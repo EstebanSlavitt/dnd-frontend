@@ -40,7 +40,8 @@ Welcome to the **DnD Character Randomizer**! This application helps Dungeon Mast
 2. Navigate to the project directory:
 
    ```bash
-   cd dnd-randomizer
+   cd dnd-frontend
+
    ```
 
 3. Install dependencies:
