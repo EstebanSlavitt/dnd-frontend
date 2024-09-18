@@ -9,6 +9,7 @@ const navigation = [
   { name: "Info", href: "/dnd/info", current: false },
   { name: "Login", href: "/login", current: false },
   { name: "Characters Backstory", href: "/characters/backstory", current: false },
+  { name: "Random DnD Image", href: "/random-dnd-image", current: false }, // Add this for Random DnD Image
 ];
 
 function classNames(...classes) {
@@ -20,7 +21,6 @@ export function Header() {
 
   return (
     <>
-      {/* Navigation */}
       <Disclosure as="nav" className="bg-gray-800">
         {({ open }) => (
           <>
@@ -37,12 +37,10 @@ export function Header() {
                   </Disclosure.Button>
                 </div>
 
-                {/* D&D Logo/Title */}
                 <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                   <div className="text-3xl font-bold text-white font-cinzel">Dungeons & Dragons</div>
                 </div>
 
-                {/* Desktop Navigation Links */}
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -59,7 +57,6 @@ export function Header() {
                       </Link>
                     ))}
 
-                    {/* Show Logout if user is authenticated */}
                     {isAuthenticated && <LogoutLink />}
                   </div>
                 </div>
